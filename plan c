@@ -1,0 +1,747 @@
+"use strict";
+
+/* ==========================
+   DRIVERSLINK KENYA
+   Frontend application
+========================== */
+
+const jobs = [
+    {
+        title: "Company Driver",
+        company: "Nairobi Business Services",
+        county: "Nairobi",
+        licence: "B",
+        experience: "3+ years"
+    },
+    {
+        title: "PSV Driver",
+        company: "Kenya Transport Services",
+        county: "Mombasa",
+        licence: "D",
+        experience: "4+ years"
+    },
+    {
+        title: "Truck Driver",
+        company: "East Africa Logistics Ltd",
+        county: "Nakuru",
+        licence: "CE",
+        experience: "5+ years"
+    },
+    {
+        title: "Personal Driver",
+        company: "Private Employer",
+        county: "Kiambu",
+        licence: "B",
+        experience: "3+ years"
+    },
+    {
+        title: "School Bus Driver",
+        company: "Private School",
+        county: "Machakos",
+        licence: "D",
+        experience: "5+ years"
+    },
+    {
+        title: "Delivery Driver",
+        company: "Logistics Company",
+        county: "Nairobi",
+        licence: "B",
+        experience: "2+ years"
+    }
+];
+
+
+/* ==========================
+   LOAD JOBS
+========================== */
+
+function loadJobs(list = jobs) {
+
+    const container = document.getElementById("jobsContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+
+        container.innerHTML = `
+            <div class="card">
+                <h3>No jobs found</h3>
+                <p>Try changing your search criteria.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    list.forEach(job => {
+
+        const card = document.createElement("div");
+
+        card.className = "job-card";
+
+        card.innerHTML = `
+            <h3>${job.title}</h3>
+
+            <p class="company">
+                ${job.company}
+            </p>
+
+            <div class="job-info">
+
+                📍 ${job.county}<br>
+
+                Licence:
+                <span class="license">
+                    ${job.licence}
+                </span>
+
+                <br>
+
+                Experience:
+                ${job.experience}
+
+            </div>
+
+            <button
+                class="btn btn-green"
+                onclick="applyJob('${job.title}')">
+
+                Apply for Job
+
+            </button>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+/* ==========================
+   SEARCH JOBS
+========================== */
+
+function searchJobs() {
+
+    const keyword =
+        document.getElementById("keyword").value
+        .trim()
+        .toLowerCase();
+
+    const county =
+        document.getElementById("county").value;
+
+    const licence =
+        document.getElementById("licence").value;
+
+
+    const results = jobs.filter(job => {
+
+        const keywordMatch =
+            keyword === "" ||
+            job.title.toLowerCase().includes(keyword) ||
+            job.company.toLowerCase().includes(keyword);
+
+        const countyMatch =
+            county === "" ||
+            job.county === county;
+
+        const licenceMatch =
+            licence === "" ||
+            job.licence === licence;
+
+        return keywordMatch &&
+               countyMatch &&
+               licenceMatch;
+    });
+
+
+    loadJobs(results);
+}
+
+
+/* ==========================
+   MODALS
+========================== */
+
+function openModal(id) {
+
+    const modal = document.getElementById(id);
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+}
+
+
+function closeModal(id) {
+
+    const modal = document.getElementById(id);
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+}
+
+
+function openRegister(type = "driver") {
+
+    selectAccount(type);
+
+    openModal("registerModal");
+}
+
+
+function openLogin() {
+
+    openModal("loginModal");
+}
+
+
+/* ==========================
+   ACCOUNT TYPE
+========================== */
+
+let selectedAccount = "driver";
+
+
+function selectAccount(type) {
+
+    selectedAccount = type;
+
+    const driverOption =
+        document.getElementById("driverOption");
+
+    const employerOption =
+        document.getElementById("employerOption");
+
+    const driverFields =
+        document.getElementById("driverFields");
+
+
+    if (type === "driver") {
+
+        driverOption.classList.add("selected");
+
+        employerOption.classList.remove("selected");
+
+        driverFields.classList.remove("hidden");
+
+    } else {
+
+        employerOption.classList.add("selected");
+
+        driverOption.classList.remove("selected");
+
+        driverFields.classList.add("hidden");
+    }
+}
+
+
+/* ==========================
+   REGISTER
+========================== */
+
+function registerUser() {
+
+    const name =
+        document.getElementById("regName")
+        .value.trim();
+
+    const email =
+        document.getElementById("regEmail")
+        .value.trim();
+
+    const phone =
+        document.getElementById("regPhone")
+        .value.trim();
+
+    const password =
+        document.getElementById("regPassword")
+        .value.trim();
+
+
+    if (!name || !email || !phone || !password) {
+
+        alert("Please complete all required fields.");
+
+        return;
+    }
+
+
+    if (selectedAccount === "driver") {
+
+        const licence =
+            document.getElementById("regLicence")
+            .value;
+
+        const experience =
+            document.getElementById("regExperience")
+            .value;
+
+        const county =
+            document.getElementById("regCounty")
+            .value;
+
+
+        if (!licence || !experience || !county) {
+
+            alert("Please complete your driver information.");
+
+            return;
+        }
+    }
+
+
+    const user = {
+
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+
+        type: selectedAccount,
+
+        status: "Pending Payment",
+
+        paid: false,
+
+        registeredAt:
+            new Date().toISOString()
+    };
+
+
+    localStorage.setItem(
+        "driverslinkUser",
+        JSON.stringify(user)
+    );
+
+
+    closeModal("registerModal");
+
+    openModal("paymentModal");
+}
+
+
+/* ==========================
+   DEMO PAYMENT
+========================== */
+
+function processPayment() {
+
+    const phone =
+        document.getElementById("mpesaPhone")
+        .value.trim();
+
+
+    if (!phone) {
+
+        alert("Enter your M-PESA phone number.");
+
+        return;
+    }
+
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkUser"
+            )
+        );
+
+
+    if (!user) {
+
+        alert("Registration information not found.");
+
+        return;
+    }
+
+
+    /*
+       DEMO ONLY
+
+       This does NOT actually charge
+       an M-PESA account.
+
+       Real Daraja API integration
+       will be added to the backend.
+    */
+
+    user.paid = true;
+
+    user.status = "Active";
+
+
+    localStorage.setItem(
+        "driverslinkUser",
+        JSON.stringify(user)
+    );
+
+
+    closeModal("paymentModal");
+
+
+    alert(
+        "Demo payment successful. Your DriversLink Kenya account is now active."
+    );
+
+
+    showDashboard();
+}
+
+
+/* ==========================
+   LOGIN
+========================== */
+
+function loginUser() {
+
+    const email =
+        document.getElementById("loginEmail")
+        .value.trim();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value.trim();
+
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkUser"
+            )
+        );
+
+
+    if (!user) {
+
+        alert(
+            "No account found. Please register first."
+        );
+
+        return;
+    }
+
+
+    if (
+        user.email === email &&
+        user.password === password
+    ) {
+
+        closeModal("loginModal");
+
+        showDashboard();
+
+    } else {
+
+        alert(
+            "Incorrect email or password."
+        );
+    }
+}
+
+
+/* ==========================
+   DASHBOARD
+========================== */
+
+function showDashboard() {
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkUser"
+            )
+        );
+
+
+    if (!user) return;
+
+
+    const dashboard =
+        document.getElementById("dashboard");
+
+
+    dashboard.classList.add("active");
+
+
+    document.getElementById(
+        "welcomeUser"
+    ).textContent =
+        "Welcome, " + user.name;
+
+
+    document.getElementById(
+        "accountTypeText"
+    ).textContent =
+        user.type === "driver"
+            ? "Driver Account"
+            : "Employer Account";
+
+
+    document.getElementById(
+        "accountStatus"
+    ).textContent =
+        user.status;
+
+
+    document.getElementById(
+        "profileText"
+    ).textContent =
+        user.type === "driver"
+            ? "Complete your professional driver profile."
+            : "Complete your employer profile and post a driving vacancy.";
+
+
+    dashboard.scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+/* ==========================
+   DRIVER APPLICATION
+========================== */
+
+function applyJob(jobTitle) {
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkUser"
+            )
+        );
+
+
+    if (!user) {
+
+        alert(
+            "Please register or login before applying for a job."
+        );
+
+        openRegister("driver");
+
+        return;
+    }
+
+
+    if (user.type !== "driver") {
+
+        alert(
+            "Only driver accounts can apply for driving jobs."
+        );
+
+        return;
+    }
+
+
+    if (!user.paid) {
+
+        alert(
+            "Please activate your account by paying KSh 250."
+        );
+
+        openModal("paymentModal");
+
+        return;
+    }
+
+
+    const applications =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkApplications"
+            ) || "[]"
+        );
+
+
+    applications.push({
+
+        job: jobTitle,
+
+        driverEmail: user.email,
+
+        status: "Submitted",
+
+        date:
+            new Date().toISOString()
+    });
+
+
+    localStorage.setItem(
+        "driverslinkApplications",
+        JSON.stringify(applications)
+    );
+
+
+    alert(
+        "Application submitted successfully for " +
+        jobTitle +
+        "."
+    );
+}
+
+
+/* ==========================
+   PROFILE
+========================== */
+
+function completeProfile() {
+
+    const user =
+        JSON.parse(
+            localStorage.getItem(
+                "driverslinkUser"
+            )
+        );
+
+
+    if (!user) {
+
+        alert("Please login first.");
+
+        return;
+    }
+
+
+    if (user.type === "driver") {
+
+        alert(
+            "Your driver profile will include your licence class, experience, county, availability and CV."
+        );
+
+    } else {
+
+        alert(
+            "Your employer profile will include your company information and driving vacancies."
+        );
+    }
+}
+
+
+/* ==========================
+   CONTACT FORM
+========================== */
+
+function sendMessage() {
+
+    const name =
+        document.getElementById(
+            "contactName"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "contactEmail"
+        ).value.trim();
+
+    const message =
+        document.getElementById(
+            "contactMessage"
+        ).value.trim();
+
+
+    if (!name || !email || !message) {
+
+        alert(
+            "Please complete the contact form."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Thank you, " +
+        name +
+        ". Your message has been received."
+    );
+
+
+    document.getElementById(
+        "contactName"
+    ).value = "";
+
+    document.getElementById(
+        "contactEmail"
+    ).value = "";
+
+    document.getElementById(
+        "contactMessage"
+    ).value = "";
+}
+
+
+/* ==========================
+   LOGOUT
+========================== */
+
+function logout() {
+
+    localStorage.removeItem(
+        "driverslinkUser"
+    );
+
+
+    const dashboard =
+        document.getElementById(
+            "dashboard"
+        );
+
+
+    dashboard.classList.remove(
+        "active"
+    );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ==========================
+   NAVIGATION
+========================== */
+
+function scrollToSection(id) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+}
+
+
+/* ==========================
+   INITIALIZATION
+========================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadJobs();
+
+        const existingUser =
+            localStorage.getItem(
+                "driverslinkUser"
+            );
+
+        if (existingUser) {
+
+            console.log(
+                "DriversLink Kenya account detected."
+            );
+        }
+    }
+);
