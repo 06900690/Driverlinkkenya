@@ -1,0 +1,871 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DriversLink Kenya | Driving Jobs</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <span>Drivers</span><strong>Link</strong>
+        <small>KENYA</small>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#jobs">Driving Jobs</a>
+        <a href="#how">How It Works</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-buttons">
+        <button class="btn-outline" onclick="openLogin()">Login</button>
+        <button class="btn-primary" onclick="openRegister()">Register</button>
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            🇰🇪 Kenya's Driver Employment Platform
+        </div>
+
+        <h1>
+            Find Your Next
+            <span>Driving Job</span>
+            in Kenya
+        </h1>
+
+        <p>
+            DriversLink Kenya connects qualified drivers with employers
+            looking for reliable driving professionals across Kenya.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn-primary big"
+                    onclick="openRegister('driver')">
+                🚗 Find a Driving Job
+            </button>
+
+            <button class="btn-outline big"
+                    onclick="openRegister('employer')">
+                🏢 Hire a Driver
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div>
+        <h2>47</h2>
+        <p>Counties</p>
+    </div>
+
+    <div>
+        <h2>24/7</h2>
+        <p>Access</p>
+    </div>
+
+    <div>
+        <h2>KSh 250</h2>
+        <p>Activation</p>
+    </div>
+
+    <div>
+        <h2>🇰🇪</h2>
+        <p>Kenya</p>
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+        <span>WHY DRIVER'S LINK</span>
+
+        <h2>Built For Drivers & Employers</h2>
+
+        <p>
+            A simple platform designed to make finding driving employment
+            and hiring qualified drivers easier.
+        </p>
+    </div>
+
+    <div class="features">
+
+        <div class="feature-card">
+            <div class="icon">🚗</div>
+            <h3>For Drivers</h3>
+            <p>
+                Create your professional driving profile,
+                find suitable vacancies and apply for jobs.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🏢</div>
+            <h3>For Employers</h3>
+            <p>
+                Find drivers based on licence class,
+                experience, location and availability.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🔎</div>
+            <h3>Easy Search</h3>
+            <p>
+                Search driving jobs by county, licence class,
+                experience and job title.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= JOBS ================= -->
+
+<section id="jobs" class="section jobs-section">
+
+    <div class="section-heading">
+
+        <span>AVAILABLE OPPORTUNITIES</span>
+
+        <h2>Latest Driving Jobs</h2>
+
+        <p>
+            Explore driving opportunities from employers across Kenya.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="jobSearch"
+            placeholder="Search job title..."
+        >
+
+        <select id="countySearch">
+
+            <option value="">All Counties</option>
+
+            <option>Nairobi</option>
+            <option>Mombasa</option>
+            <option>Kiambu</option>
+            <option>Nakuru</option>
+            <option>Machakos</option>
+            <option>Kisumu</option>
+            <option>Uasin Gishu</option>
+            <option>Murang'a</option>
+
+        </select>
+
+        <select id="licenceSearch">
+
+            <option value="">All Licence Classes</option>
+
+            <option>B</option>
+            <option>C</option>
+            <option>CE</option>
+            <option>D</option>
+            <option>BE</option>
+
+        </select>
+
+        <button class="btn-primary" onclick="searchJobs()">
+            Search Jobs
+        </button>
+
+    </div>
+
+
+    <div id="jobsContainer" class="jobs-container"></div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section id="how" class="section">
+
+    <div class="section-heading">
+
+        <span>HOW IT WORKS</span>
+
+        <h2>Start Your Journey</h2>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="number">1</div>
+
+            <h3>Create Account</h3>
+
+            <p>
+                Register as a driver or employer.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+            <div class="number">2</div>
+
+            <h3>Activate Account</h3>
+
+            <p>
+                Complete the KSh 250 activation step.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+            <div class="number">3</div>
+
+            <h3>Complete Profile</h3>
+
+            <p>
+                Add your professional information.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+            <div class="number">4</div>
+
+            <h3>Get Connected</h3>
+
+            <p>
+                Drivers apply for jobs while employers find suitable drivers.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EMPLOYER CTA ================= -->
+
+<section class="employer-cta">
+
+    <div>
+
+        <span>ARE YOU AN EMPLOYER?</span>
+
+        <h2>Looking For A Reliable Driver?</h2>
+
+        <p>
+            Create an employer account and start finding qualified drivers.
+        </p>
+
+    </div>
+
+    <button class="btn-primary big"
+            onclick="openRegister('employer')">
+        Register As Employer
+    </button>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="section contact-section">
+
+    <div class="section-heading">
+
+        <span>CONTACT US</span>
+
+        <h2>DriversLink Kenya</h2>
+
+    </div>
+
+    <div class="contact-grid">
+
+        <div>
+
+            <h3>Get In Touch</h3>
+
+            <p>
+                Have a question about DriversLink Kenya?
+                Contact us directly.
+            </p>
+
+            <p>
+                📞 <strong>0796241388</strong>
+            </p>
+
+            <p>
+                📧 <strong>elvisoumasikudi@gmail.com</strong>
+            </p>
+
+        </div>
+
+
+        <form id="contactForm">
+
+            <input
+                type="text"
+                id="contactName"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="contactEmail"
+                placeholder="Your Email"
+                required
+            >
+
+            <textarea
+                id="contactMessage"
+                placeholder="Your Message"
+                required>
+            </textarea>
+
+            <button class="btn-primary" type="submit">
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="logo">
+        <span>Drivers</span><strong>Link</strong>
+        <small>KENYA</small>
+    </div>
+
+    <p>
+        © 2026 DriversLink Kenya. Connecting drivers with employment opportunities.
+    </p>
+
+</footer>
+
+
+<!-- ================= REGISTER MODAL ================= -->
+
+<div id="registerModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('registerModal')">
+            ×
+        </button>
+
+        <h2>Create Your Account</h2>
+
+        <p>
+            Register as a driver or employer.
+        </p>
+
+
+        <div class="account-choice">
+
+            <button id="driverChoice"
+                    onclick="selectAccount('driver')">
+
+                🚗
+                <strong>Driver</strong>
+
+                <small>
+                    Looking for driving employment
+                </small>
+
+            </button>
+
+
+            <button id="employerChoice"
+                    onclick="selectAccount('employer')">
+
+                🏢
+                <strong>Employer</strong>
+
+                <small>
+                    Looking to hire drivers
+                </small>
+
+            </button>
+
+        </div>
+
+
+        <form id="registerForm">
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="tel"
+                id="registerPhone"
+                placeholder="Phone Number"
+                required
+            >
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create Password"
+                required
+            >
+
+            <button class="btn-primary full"
+                    type="submit">
+
+                Continue To Activation — KSh 250
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PAYMENT MODAL ================= -->
+
+<div id="paymentModal" class="modal">
+
+    <div class="modal-box payment-box">
+
+        <button class="close"
+                onclick="closeModal('paymentModal')">
+            ×
+        </button>
+
+        <div class="payment-icon">💰</div>
+
+        <h2>Activate Your Account</h2>
+
+        <p>
+            Registration activation fee
+        </p>
+
+        <div class="amount">
+            KSh 250
+        </div>
+
+
+        <form id="paymentForm">
+
+            <label>
+                M-PESA Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="mpesaPhone"
+                placeholder="07XXXXXXXX"
+                required
+            >
+
+            <button class="btn-primary full"
+                    type="submit">
+
+                Simulate M-PESA Payment
+
+            </button>
+
+        </form>
+
+
+        <small class="demo-note">
+            Demo mode: this simulates successful payment.
+            Real M-PESA will be connected through Safaricom Daraja.
+        </small>
+
+    </div>
+
+</div>
+
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div id="loginModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close"
+                onclick="closeModal('loginModal')">
+            ×
+        </button>
+
+        <h2>Login</h2>
+
+        <p>
+            Access your DriversLink Kenya account.
+        </p>
+
+
+        <form id="loginForm">
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email Address"
+                required
+            >
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                required
+            >
+
+            <button class="btn-primary full"
+                    type="submit">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p class="switch-text">
+
+            Don't have an account?
+
+            <a href="#" onclick="openRegister(); return false;">
+                Register
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboardModal" class="modal">
+
+    <div class="dashboard">
+
+        <button class="close"
+                onclick="closeModal('dashboardModal')">
+            ×
+        </button>
+
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <span id="dashboardRole"
+                      class="role-badge">
+                </span>
+
+                <h2 id="dashboardName">
+                    Dashboard
+                </h2>
+
+                <p id="accountStatus">
+                    Active Account
+                </p>
+
+            </div>
+
+            <button class="logout-btn"
+                    onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+
+        <!-- DRIVER DASHBOARD -->
+
+        <div id="driverDashboard">
+
+            <div class="dashboard-cards">
+
+                <div>
+                    <span>Applications</span>
+                    <strong id="applicationCount">0</strong>
+                </div>
+
+                <div>
+                    <span>Profile</span>
+                    <strong>60%</strong>
+                </div>
+
+                <div>
+                    <span>Status</span>
+                    <strong>Active</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-section">
+
+                <h3>Driver Profile</h3>
+
+                <div class="profile-form">
+
+                    <input
+                        id="driverCounty"
+                        placeholder="County"
+                    >
+
+                    <select id="driverLicence">
+
+                        <option value="">
+                            Licence Class
+                        </option>
+
+                        <option>B</option>
+                        <option>BE</option>
+                        <option>C</option>
+                        <option>CE</option>
+                        <option>D</option>
+
+                    </select>
+
+                    <input
+                        id="driverExperience"
+                        type="number"
+                        placeholder="Years of Experience"
+                    >
+
+                    <select id="driverAvailability">
+
+                        <option value="">
+                            Availability
+                        </option>
+
+                        <option>Available Immediately</option>
+                        <option>Available Within 1 Week</option>
+                        <option>Currently Employed</option>
+
+                    </select>
+
+                    <button class="btn-primary"
+                            onclick="saveDriverProfile()">
+
+                        Save Profile
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-section">
+
+                <h3>My Applications</h3>
+
+                <div id="myApplications">
+                    <p>No applications yet.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMPLOYER DASHBOARD -->
+
+        <div id="employerDashboard">
+
+            <div class="dashboard-cards">
+
+                <div>
+                    <span>Jobs Posted</span>
+                    <strong id="jobCount">0</strong>
+                </div>
+
+                <div>
+                    <span>Applications</span>
+                    <strong>0</strong>
+                </div>
+
+                <div>
+                    <span>Status</span>
+                    <strong>Active</strong>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-section">
+
+                <h3>Employer Profile</h3>
+
+                <input
+                    id="companyName"
+                    placeholder="Company Name"
+                >
+
+                <input
+                    id="companyLocation"
+                    placeholder="Company Location"
+                >
+
+                <textarea
+                    id="companyDescription"
+                    placeholder="Company Description">
+                </textarea>
+
+                <button class="btn-primary"
+                        onclick="saveEmployerProfile()">
+
+                    Save Company Profile
+
+                </button>
+
+            </div>
+
+
+            <div class="dashboard-section">
+
+                <h3>Post A Driving Job</h3>
+
+                <form id="jobForm">
+
+                    <input
+                        id="newJobTitle"
+                        placeholder="Job Title"
+                        required
+                    >
+
+                    <input
+                        id="newJobCounty"
+                        placeholder="County"
+                        required
+                    >
+
+                    <select id="newJobLicence" required>
+
+                        <option value="">
+                            Licence Class
+                        </option>
+
+                        <option>B</option>
+                        <option>BE</option>
+                        <option>C</option>
+                        <option>CE</option>
+                        <option>D</option>
+
+                    </select>
+
+                    <input
+                        id="newJobExperience"
+                        type="number"
+                        placeholder="Experience Required"
+                        required
+                    >
+
+                    <input
+                        id="newJobSalary"
+                        placeholder="Salary e.g. KSh 30,000"
+                    >
+
+                    <textarea
+                        id="newJobDescription"
+                        placeholder="Job Description"
+                        required>
+                    </textarea>
+
+                    <button class="btn-primary"
+                            type="submit">
+
+                        Post Job
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="dashboard-section">
+
+                <h3>My Posted Jobs</h3>
+
+                <div id="myJobs">
+                    <p>No jobs posted yet.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
